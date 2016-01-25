@@ -1,9 +1,5 @@
 # -*- mode: ruby -*-
 
-Vagrant.configure("2") do |config|
-  config.vm.provision "shell", path: "provision/cloneamicale.sh"
-end
-
 dir = File.dirname(File.expand_path(__FILE__))
 
 require 'yaml'
