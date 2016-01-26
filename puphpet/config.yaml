@@ -7,22 +7,25 @@ vagrantfile:
         memory: '512'
         cpus: '1'
         chosen_provider: virtualbox
+        box_version: ''
         network:
             private_network: 192.168.56.101
             forwarded_port:
-                vflnp_smtqae4o7nmw:
-                    host: '6799'
+                vflnp_p307hylth1bx:
+                    host: '5329'
                     guest: '22'
         post_up_message: ''
         provider:
             virtualbox:
                 modifyvm:
-                    natdnshostresolver1: 'on'
+                    natdnshostresolver1: false
                 showgui: '0'
             vmware:
                 numvcpus: 1
             parallels:
-                cpus: 1
+                use_linked_clone: '0'
+                check_guest_tools: '0'
+                update_guest_tools: '0'
         provision:
             puppet:
                 manifests_path: puphpet/puppet/manifests
@@ -31,7 +34,7 @@ vagrantfile:
                     - '--verbose'
                     - '--hiera_config /vagrant/puphpet/puppet/hiera.yaml'
         synced_folder:
-            vflsf_2szizyxdn64s:
+            vflsf_moo6ayu3vgrj:
                 source: ./
                 target: /var/www
                 sync_type: default
@@ -39,6 +42,9 @@ vagrantfile:
                     smb_host: ''
                     smb_username: ''
                     smb_password: ''
+                    mount_options:
+                        dir_mode: '0775'
+                        file_mode: '0664'
                 rsync:
                     args:
                         - '--verbose'
@@ -66,22 +72,29 @@ vagrantfile:
         insert_key: false
     vagrant:
         host: detect
+    proxy:
+        http: ''
+        https: ''
+        ftp: ''
+        no_proxy: ''
+        enabled: ''
 server:
     install: '1'
     packages:
         - vim
+        - git
 users_groups:
     install: '1'
     groups: {  }
-    users:
-        - amicale
+    users: {  }
 locale:
     install: '1'
     settings:
-        default_locale: fr_FR.UTF-8
+        default_locale: en_US.UTF-8
         locales:
             - en_GB.UTF-8
             - en_US.UTF-8
+        timezone: UTC
 firewall:
     install: '1'
     rules: {  }
@@ -100,11 +113,9 @@ nginx:
         names_hash_bucket_size: 128
     upstreams: {  }
     vhosts:
-        nxv_3m5oc3n8sf9v:
+        nxv_bwd9agzg4x8n:
             server_name: amicale.dev
-            server_aliases:
-                - www.amicale.dev
-            www_root: /var/www/amicale
+            www_root: /var/www/html/web
             listen_port: '80'
             index_files:
                 - index.html
@@ -120,7 +131,7 @@ nginx:
             rewrite_to_https: '1'
             spdy: '1'
             locations:
-                nxvl_x1r741nov1z0:
+                nxvl_cmf0fyiyfchi:
                     location: /
                     autoindex: 'off'
                     internal: 'false'
@@ -133,7 +144,7 @@ nginx:
                     fastcgi_split_path: ''
                     proxy: ''
                     proxy_redirect: ''
-                nxvl_9j1vs82e3ej3:
+                nxvl_jcvl73dctama:
                     location: '~ \.php$'
                     autoindex: 'off'
                     internal: 'false'
@@ -155,6 +166,7 @@ nginx:
 apache:
     install: '0'
     settings:
+        version: 2.4
         user: www-data
         group: www-data
         default_vhost: true
@@ -165,7 +177,7 @@ apache:
         - proxy_fcgi
         - rewrite
     vhosts:
-        av_4019n0qys61o:
+        av_xzei9uodumyq:
             servername: awesome.dev
             serveraliases:
                 - www.awesome.dev
@@ -184,7 +196,7 @@ apache:
             ssl_protocol: ''
             ssl_cipher: ''
             directories:
-                avd_wsiop9fsudw8:
+                avd_81vg9sf0kesz:
                     path: /var/www/awesome
                     options:
                         - Indexes
@@ -196,7 +208,7 @@ apache:
                         - 'all granted'
                     custom_fragment: ''
                     files_match:
-                        avdfm_8234kvyj5n9z:
+                        avdfm_g9gw6wq2yahw:
                             path: \.php$
                             sethandler: 'proxy:fcgi://127.0.0.1:9000'
                             custom_fragment: ''
@@ -210,9 +222,10 @@ php:
         php:
             - cli
             - intl
-            - mcrypt
             - curl
             - fpm
+            - ldap
+            - mcrypt
         pear: {  }
         pecl: {  }
     ini:
@@ -223,7 +236,7 @@ php:
     fpm_ini:
         error_log: /var/log/php-fpm.log
     fpm_pools:
-        phpfp_l2o80clnysnm:
+        phpfp_2hw9iqff6g6h:
             ini:
                 prefix: www
                 listen: '127.0.0.1:9000'
@@ -259,19 +272,25 @@ xhprof:
     install: '0'
 wpcli:
     install: '0'
-    version: v0.19.0
+    version: v0.21.1
 drush:
     install: '0'
     version: 6.3.0
 ruby:
     install: '1'
-    versions: {  }
+    versions:
+        rv_q7nagf7mkj8n:
+            default: '1'
+            bundler: '1'
+            version: 1.9.3
 python:
     install: '1'
     packages: {  }
     versions: {  }
 nodejs:
     install: '0'
+    settings:
+        version: '5'
     npm_packages: {  }
 hhvm:
     install: '0'
@@ -289,22 +308,22 @@ hhvm:
         error_reporting: '-1'
         date.timezone: UTC
 mariadb:
-    install: 0
+    install: '0'
     settings:
         version: '10.1'
         root_password: '123'
         override_options: {  }
     adminer: 0
     users:
-        mariadbnu_51lfreps4jwi:
+        mariadbnu_lcqbp235f1xs:
             name: dbuser
             password: '123'
     databases:
-        mariadbnd_o653uk8b3n89:
+        mariadbnd_ftnqgl2y73yy:
             name: dbname
             sql: ''
     grants:
-        mariadbng_0k26hut1l0rh:
+        mariadbng_6l7nhi9afgqv:
             user: dbuser
             table: '*.*'
             privileges:
@@ -317,15 +336,15 @@ mysql:
         override_options: {  }
     adminer: 0
     users:
-        mysqlnu_2ukbhqq8m9ud:
+        mysqlnu_locrv472ibof:
             name: amicale
             password: amicale
     databases:
-        mysqlnd_jrn5db7c814p:
+        mysqlnd_nzmfpcd78325:
             name: amicale
             sql: ''
     grants:
-        mysqlng_osy0j01nyfrh:
+        mysqlng_s4x3l4hzfqft:
             user: amicale
             table: 'amicale.*'
             privileges:
@@ -354,7 +373,7 @@ mongodb:
 redis:
     install: '0'
     settings:
-        conf_port: '6379'
+        port: '6379'
 sqlite:
     install: '0'
     adminer: 0
@@ -390,6 +409,9 @@ elastic_search:
     settings:
         version: 2.1.0
         java_install: true
+    instances:
+        esi_la6hgteeadgw:
+            name: es-01
 solr:
     install: '0'
     settings:
