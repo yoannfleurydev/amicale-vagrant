@@ -3,3 +3,4 @@ puphpet/config-custom.yaml
 .vagrant
 html/!.gitkeep
 html/*
+.idea
