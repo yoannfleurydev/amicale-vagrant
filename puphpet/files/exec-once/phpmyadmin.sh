@@ -1,5 +1,8 @@
 #! /bin/bash
 
+rm -rf /etc/nginx/sites-available/phpmyadmin.conf
+rm -rf /etc/nginx/sites-enabled/phpmyadmin.conf
+
 cp /var/www/vhosts/phpmyadmin.conf /etc/nginx/sites-available/phpmyadmin.conf
 ln -s /etc/nginx/sites-available/phpmyadmin.conf /etc/nginx/sites-enabled/phpmyadmin.conf
 chown root:root /etc/nginx/sites-available/phpmyadmin.conf

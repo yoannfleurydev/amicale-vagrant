@@ -2,8 +2,9 @@
 
 rm -rf /etc/nginx/sites-available/n*
 rm -rf /etc/nginx/sites-enabled/n*
-
 rm -rf /var/www/html/.gitkeep /var/www/html/*
+rm -rf /etc/nginx/sites-available/amicale.conf
+
 git clone https://github.com/yoannfleurydev/amicale-src.git /var/www/html
 touch /var/www/html/.gitkeep
 
@@ -16,6 +17,5 @@ cd /var/www/html
 composer install
 
 cd /
-
 
 sudo service nginx restart

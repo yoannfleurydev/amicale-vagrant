@@ -4,3 +4,4 @@ puphpet/config-custom.yaml
 html/!.gitkeep
 html/*
 .idea
+phpmyadmin/
