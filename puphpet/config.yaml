@@ -4,7 +4,7 @@ vagrantfile:
         box: puphpet/ubuntu1404-x64
         box_url: puphpet/ubuntu1404-x64
         hostname: local.puphpet
-        memory: '1024'
+        memory: '2048'
         cpus: '1'
         chosen_provider: virtualbox
         box_version: ''
@@ -226,6 +226,7 @@ php:
             - fpm
             - ldap
             - mcrypt
+            - gd
         pear: {  }
         pecl: {  }
     ini:
